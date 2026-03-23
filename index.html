@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MediGuide AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🩺 MediGuide AI</h1>
+    <p>AI Health Assistant for Preventive Care</p>
+
+    <textarea id="symptoms"
+        placeholder="Enter symptoms (e.g., fever, headache)..."></textarea>
+
+    <button onclick="analyze()">Analyze</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+async function analyze() {
+
+    const symptoms = document.getElementById("symptoms").value;
+
+    const response = await fetch("/analyze", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({symptoms})
+    });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerText = data.response;
+}
+</script>
+
+</body>
+</html>
